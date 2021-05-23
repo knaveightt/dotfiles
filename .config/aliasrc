@@ -1,0 +1,22 @@
+# vi:syntax=zsh
+
+# ls alias
+alias ll="ls -alG --color=auto"
+alias ls="ls --color=auto"
+
+# file explorer alias
+alias f="vifm"
+
+# vim alisa and shortcuts
+alias v="vim"
+alias vv="vim ~/Projects/knaVIMRC/.vim/vimrc"
+alias va="vim ~/.config/aliasrc"
+alias vq="vim ~/.config/qtile/config.py"
+alias vz="vim ~/.config/zsh/.zshrc"
+alias vm="vim ~/.config/mpd/mpd.conf"
+alias vf="vim ~/.config/vifm/vifmrc"
+
+# dotfile tracking alias
+alias dfiles='/usr/bin/git --git-dir=$HOME/Projects/dotfiles --work-tree=$HOME'
+# must be sure to execute the above and the following to get started:
+# dfiles config --local status.showUntrackedFiles no
