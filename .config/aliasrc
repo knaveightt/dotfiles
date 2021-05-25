@@ -20,3 +20,6 @@ alias vf="vim ~/.config/vifm/vifmrc"
 alias dfiles='/usr/bin/git --git-dir=$HOME/Projects/dotfiles --work-tree=$HOME'
 # must be sure to execute the above and the following to get started:
 # dfiles config --local status.showUntrackedFiles no
+
+# program shortcut alias
+alias sxiv="~/.config/sxiv/iv.sh"
