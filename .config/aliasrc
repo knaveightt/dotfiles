@@ -16,6 +16,7 @@ alias vz="vim ~/.config/zsh/.zshrc"
 alias vm="vim ~/.config/mpd/mpd.conf"
 alias vf="vim ~/.config/vifm/vifmrc"
 alias vd="vim ~/.config/dunst/dunstrc"
+alias vc="vim ~/.config/picom/picom.conf"
 
 # dotfile tracking alias
 alias dfiles='/usr/bin/git --git-dir=$HOME/Projects/dotfiles --work-tree=$HOME'
