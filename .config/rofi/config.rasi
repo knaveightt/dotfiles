@@ -1,5 +1,5 @@
 configuration {
-/*	modi: "window,run,drun,file-browser,keys";*/
+	modi: "window,run,drun,file-browser,keys";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
@@ -71,12 +71,12 @@ configuration {
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
 /*	display-windowcd: ;*/
-/*	display-run: ;*/
+	display-run: "Command";
 /*	display-ssh: ;*/
-/*	display-drun: ;*/
+	display-drun: "Application";
 /*	display-combi: ;*/
 /*	display-keys: ;*/
-/*	display-file-browser: ;*/
+	display-file-browser: "Files";
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
 /*	kb-secondary-paste: "Control+v,Insert";*/
 /*	kb-clear-line: "Control+w";*/
@@ -150,4 +150,4 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
-@theme "flamingo"
+@theme "dmenu"
