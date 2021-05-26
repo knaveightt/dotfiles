@@ -39,6 +39,9 @@ keys = [
         desc="Launch Rofi in Window mode"),
     Key([mod, "shift"], "w", lazy.next_layout(), desc="Toggle between layouts"),
 
+    # Application / Utility Keys
+    Key([mod], "p", lazy.spawn("gscreenshot"), desc="Take a screenshot"),
+
     # Focus Navigation
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
