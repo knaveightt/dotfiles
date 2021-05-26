@@ -69,9 +69,9 @@ keys = [
         desc="Toggle between split and unsplit sides of stack"),
 
     # multimedia keys
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 5%-")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 5%+")),
+    Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%-"))),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%+"))),
 
     # Toggle Scratchpad visibility
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
