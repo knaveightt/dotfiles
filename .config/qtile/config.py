@@ -100,8 +100,14 @@ groups.append( ScratchPad("scratchpad", [
 
 layout_theme = {
         "border_width": 2,
-        "margin": 8,
+        "margin": 10,
         "border_focus": "d06d32",
+        "border_normal": "888888"
+        }
+
+floating_theme = {
+        "border_width": 2,
+        "border_focus": "c44332",
         "border_normal": "888888"
         }
 
@@ -109,7 +115,7 @@ layouts = [
     layout.MonadTall(**layout_theme),
     layout.Columns(**layout_theme,border_focus_stack='#d75f5f'),
     layout.Max(**layout_theme),
-    layout.Floating(**layout_theme)
+    layout.Floating(**floating_theme)
     # Additional Layouts:
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -339,7 +345,9 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-])
+],
+**floating_theme
+)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
@@ -356,5 +364,5 @@ def autostart():
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"
 
