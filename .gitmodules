@@ -1,3 +1,6 @@
 [submodule ".config/vifm/vifm_devicons"]
 	path = .config/vifm/vifm_devicons
 	url = https://github.com/cirala/vifm_devicons.git
+[submodule ".config/ranger/plugins/ranger_devicons"]
+	path = .config/ranger/plugins/ranger_devicons
+	url = https://github.com/alexanderjeurissen/ranger_devicons
