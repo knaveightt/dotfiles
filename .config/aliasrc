@@ -5,7 +5,7 @@ alias ll="ls -alG --color=auto"
 alias ls="ls --color=auto"
 
 # file explorer alias
-alias f="vifm"
+alias f="ranger"
 
 # vim alisa and shortcuts
 alias v="vim"
