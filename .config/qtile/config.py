@@ -76,6 +76,9 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%-"))),
     Key([], "XF86AudioRaiseVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%+"))),
 
+    # external program launches
+    Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
+
     # Toggle Scratchpad visibility
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
 
