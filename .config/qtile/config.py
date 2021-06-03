@@ -17,10 +17,10 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "shift"], "q", lazy.spawn(os.path.expanduser("~/.config/qtile/logoff.sh")), desc="Shutdown/Restart"),
+    Key([mod, "control"], "s", lazy.spawn(os.path.expanduser("~/.config/qtile/logoff.sh")), desc="Shutdown/Restart"),
 
     # Launching Short Cuts
-    Key([mod, "mod1"], "q", lazy.spawn("xkill"),
+    Key([mod, "shift"], "q", lazy.spawn("xkill"),
         desc="Spawn xkill mode"),
     Key([mod], "r", lazy.spawn("rofi -show run -theme dmenu"),
         desc="Launch Rofi in Run mode"),
@@ -79,6 +79,9 @@ keys = [
     # external program launches
     Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
     Key([mod], "l", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
+
+    Key([mod, "mod1"], "r", lazy.spawn("st -z 18 -e ranger"), desc="Launch Ranger"),
+    Key([mod, "mod1"], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
 
     # Toggle Scratchpad visibility
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
