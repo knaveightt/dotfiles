@@ -78,6 +78,7 @@ keys = [
 
     # external program launches
     Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
+    Key([mod], "l", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
 
     # Toggle Scratchpad visibility
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
