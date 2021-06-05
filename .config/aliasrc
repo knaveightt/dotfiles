@@ -26,3 +26,6 @@ alias dfiles='/usr/bin/git --git-dir=$HOME/Projects/dotfiles --work-tree=$HOME'
 # program shortcut alias
 alias sxiv="~/.config/sxiv/iv.sh"
 alias iv="sxiv *"
+
+# other commands
+alias cpat="cat ~/Documents/text/git_pat"
