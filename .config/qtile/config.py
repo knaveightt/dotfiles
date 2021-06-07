@@ -217,14 +217,14 @@ def init_widgets_list():
             background = colors[0],
             padding = 0
             ),
-        widget.WidgetBox (foreground=colors[6] ,widgets=[
-            widget.Systray(
-                background = colors[0],
-                padding = 4
-                )
-            ],
-            background=colors[0],
-            ),
+#        widget.WidgetBox (foreground=colors[6] ,widgets=[
+#            widget.Systray(
+#                background = colors[0],
+#                padding = 4
+#                )
+#            ],
+#            background=colors[0],
+#            ),
         widget.Sep (
             linewidth = 0,
             padding = 6,
@@ -325,6 +325,10 @@ def init_widgets_list():
             foreground = colors[0],
             background = colors[4],
             padding = 5
+            ),
+        widget.Systray(
+                background = colors[4],
+                padding = 0
             )
         ]
     return widgets_list
