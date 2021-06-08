@@ -79,7 +79,7 @@ keys = [
 
     # external program launches
     Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
-    Key([mod, "mod1"], "q", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
+    Key([mod], "z", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
 
     Key([mod, "mod1"], "r", lazy.spawn("st -z 18 -e ranger"), desc="Launch Ranger"),
     Key([mod, "mod1"], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
