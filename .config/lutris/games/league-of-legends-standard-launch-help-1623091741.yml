@@ -1,0 +1,19 @@
+game:
+  args: --locale=en_US
+  exe: /home/knaveightt/Shelf/Lutris/league-of-legends/drive_c/Riot Games/League of
+    Legends/LeagueClient.exe
+  prefix: /home/knaveightt/Shelf/Lutris/league-of-legends
+system:
+  disable_compositor: true
+  env:
+    DXVK_LOG_LEVEL: none
+    DXVK_STATE_CACHE_PATH: /home/knaveightt/Shelf/Lutris/league-of-legends
+    STAGING_SHARED_MEMORY: '1'
+    WINE_LARGE_ADDRESS_AWARE: '1'
+    __GL_SHADER_DISK_CACHE: '1'
+    __GL_SHADER_DISK_CACHE_PATH: /home/knaveightt/Shelf/Lutris/league-of-legends
+  prelaunch_command: /home/knaveightt/Shelf/Lutris/league-of-legends/launchhelper.sh
+wine:
+  MouseWarpOverride: enable
+  custom_wine_path: /opt/wine-lol/bin/wine
+  version: custom

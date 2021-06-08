@@ -4,7 +4,7 @@ import re
 import subprocess
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, Rule
 from libqtile.lazy import lazy
 
 # starting defaults
@@ -29,7 +29,7 @@ keys = [
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen focused window"),
     Key([mod, "shift"], "f", lazy.window.toggle_floating(),
         desc="Spawn a command using a prompt widget"),
-    Key([mod], "d", lazy.spawn("rofi -show drun -theme dmenu-list -show-icons"),
+    Key([mod], "d", lazy.spawn("rofi -show drun -theme dmenu-list-ex -show-icons"),
         desc="Launch Rofi in Drun mode"),
     Key([mod], "e", lazy.spawn("rofi -show file-browser -theme dmenu-list -show-icons"),
         desc="Launch Rofi in File-Browswer mode"),
@@ -68,6 +68,7 @@ keys = [
         desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod, "control"], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "o", lazy.layout.maximize(), desc="Maximize window"),
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
 
@@ -78,7 +79,7 @@ keys = [
 
     # external program launches
     Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
-    Key([mod], "l", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
+    Key([mod, "mod1"], "q", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
 
     Key([mod, "mod1"], "r", lazy.spawn("st -z 18 -e ranger"), desc="Launch Ranger"),
     Key([mod, "mod1"], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
@@ -343,9 +344,10 @@ screens = [
 # Rules and Definitions
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
+
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = False
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -354,6 +356,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
     Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_type='dock'), # cairo-dock
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
 ],

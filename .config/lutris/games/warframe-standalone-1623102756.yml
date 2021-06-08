@@ -1,0 +1,18 @@
+game:
+  arch: win64
+  exe: /home/knaveightt/Shelf/Lutris/warframe/drive_c/users/knaveightt/Local Settings/Application
+    Data/Warframe/Downloaded/Public/Tools/Launcher.exe
+  prefix: /home/knaveightt/Shelf/Lutris/warframe
+system:
+  env:
+    PBA_DISABLE: '0'
+    WINEDLLOVERRIDES: libglesv2=d
+    __GL_SHADER_DISK_CACHE: '1'
+    __GL_SHADER_DISK_CACHE_PATH: /home/knaveightt/Shelf/Lutris/warframe
+    __GL_THREADED_OPTIMIZATIONS: '1'
+    mesa_glthread: 'true'
+  pulse_latency: true
+wine:
+  dxvk: true
+  esync: true
+  version: lutris-6.1-3-x86_64
