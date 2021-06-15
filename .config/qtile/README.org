@@ -1,3 +1,25 @@
+#+TITLE: Qtile Configuration
+#+PROPERTY: header-args :tangle config.py
+
+* Table of Contents :toc:
+- [[#about-this-config-file][About this Config File]]
+- [[#imports][Imports]]
+- [[#constants-and-defaults][Constants and Defaults]]
+- [[#qtile-keybindings][Qtile Keybindings]]
+- [[#mouse-bindings][Mouse Bindings]]
+- [[#group-definitions][Group Definitions]]
+- [[#layout-definitions][Layout Definitions]]
+- [[#widget-configuration][Widget Configuration]]
+- [[#building-the-interface][Building the Interface]]
+- [[#application-and-layout-rules][Application and Layout Rules]]
+- [[#hooks-and-wrap-ups][Hooks and Wrap Ups]]
+
+* About this Config File
+
+* Imports
+Importing the necessary components for this Qtile configuration
+
+#+BEGIN_SRC python
 # -*- coding: utf-8 -*-
 # -*- mode: python; python-indent-offset: 4 -*-
 # Imports for the config
@@ -8,11 +30,22 @@ from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, Rule
 from libqtile.lazy import lazy
+#+END_SRC
 
+* Constants and Defaults
+Let's define the basic variables, constants and applications that will be used
+throughout the Qtile configuration.
+
+#+BEGIN_SRC python
 # starting defaults
 mod = "mod4"
 terminal = "st -z 18"
+#+END_SRC
 
+* Qtile Keybindings
+<Keybindings>
+
+#+BEGIN_SRC python
 keys = [
     # Basic shortcuts
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
@@ -70,7 +103,12 @@ keys = [
     # Toggle Scratchpad visibility
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
 ]
+#+END_SRC
 
+* Mouse Bindings
+How I use the mouse.
+
+#+BEGIN_SRC python
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
         start=lazy.window.get_position()),
@@ -78,7 +116,12 @@ mouse = [
         start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
+#+END_SRC
 
+* Group Definitions
+What groups I have and use.
+
+#+BEGIN_SRC python
 # Took this setup from DT/distrotube for group definition / hotkeys
 group_names = [("  ", {'layout': 'monadtall'}),
                ("  ", {'layout': 'monadtall'}),
@@ -94,7 +137,12 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 groups.append( ScratchPad("scratchpad", [
     DropDown("term", "st", opacity=0.8)
     ]))
+#+END_SRC
 
+* Layout Definitions
+How I define my layouts.
+
+#+BEGIN_SRC python
 layout_theme = {
         "border_width": 2,
         "margin": 10,
@@ -124,7 +172,12 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
+#+END_SRC
 
+* Widget Configuration
+How I configure the widgets.
+
+#+BEGIN_SRC python
 # colors for panel theming
 colors = [["#131313", "#131313"], # panel background
     ["#333333", "#333333"], # background for current selected group
@@ -313,14 +366,24 @@ def init_widgets_list():
             )
         ]
     return widgets_list
+#+END_SRC
 
+* Building the Interface
+How I build the window manager screens
+
+#+BEGIN_SRC python
 # Initialize Screens and Widgets
 screens = [
     Screen(
         top=bar.Bar(widgets=init_widgets_list(), opacity=1.0, size=20)
     )
 ]
+#+END_SRC
 
+* Application and Layout Rules
+Window and Layout Rules
+
+#+BEGIN_SRC python
 # Rules and Definitions
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
@@ -344,7 +407,12 @@ floating_layout = layout.Floating(float_rules=[
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+#+END_SRC
 
+* Hooks and Wrap Ups
+Hooks and the end.
+
+#+BEGIN_SRC python
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
@@ -359,3 +427,5 @@ def autostart():
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "qtile"
+#+END_SRC
+
