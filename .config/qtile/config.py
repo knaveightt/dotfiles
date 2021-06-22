@@ -6,7 +6,7 @@ import re
 import subprocess
 from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, Rule
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, Rule, KeyChord
 from libqtile.lazy import lazy
 
 # starting defaults
@@ -14,62 +14,75 @@ mod = "mod4"
 terminal = "st -z 18"
 
 keys = [
-    # Basic shortcuts
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod, "control"], "s", lazy.spawn(os.path.expanduser("~/.config/qtile/logoff.sh")), desc="Shutdown/Restart"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "shift"], "q", lazy.spawn("xkill"), desc="Spawn xkill mode"),
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen focused window"),
-    Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Spawn a command using a prompt widget"),
+      # Define the Basic Shortcuts
+      Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+      Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+      Key([mod, "control"], "s", lazy.spawn(os.path.expanduser("~/.config/qtile/logoff.sh")), desc="Shutdown/Restart"),
+      Key([mod, "control"], "x", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Xscreensaver"),
+      Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+      Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+      Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen focused window"),
+      Key([mod, "shift"], "q", lazy.spawn("xkill"), desc="Spawn xkill mode"),
+      Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Spawn a command using a prompt widget"),
 
-    # Rofi Basic Launching Short Cuts
-    Key([mod], "r", lazy.spawn("rofi -show run -theme dmenu"), desc="Launch Rofi in Run mode"),
-    Key([mod, "shift"], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "d", lazy.spawn("rofi -show drun -theme dmenu-list-ex -show-icons"), desc="Launch Rofi in Drun mode"),
-    Key([mod], "e", lazy.spawn("rofi -show file-browser -theme dmenu-list -show-icons"), desc="Launch Rofi in File-Browswer mode"),
-    Key([mod, "shift"], "e", lazy.spawn("pcmanfm"), desc="Spawn the file manager"),
-    Key([mod], "w", lazy.spawn("rofi -show window -theme dmenu-list"), desc="Launch Rofi in Window mode"),
-    Key([mod, "shift"], "w", lazy.next_layout(), desc="Toggle between layouts"),
+      # Basic Rofi Command Shortcuts
+      Key([mod], "w", lazy.spawn("rofi -show window -theme dmenu-list"), desc="Launch Rofi in Window mode"),
+      Key([mod], "r", lazy.spawn("rofi -show run -theme dmenu"), desc="Launch Rofi in Run mode"),
+      Key([mod], "d", lazy.spawn("rofi -show drun -theme dmenu-list-ex -show-icons"), desc="Launch Rofi in Drun mode"),
+      Key([mod], "e", lazy.spawn("rofi -show file-browser -theme dmenu-list -show-icons"), desc="Launch Rofi in File-Browswer mode"),
 
-    # Focus Movement
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+      # "Extended" Command Shortcuts
+      Key([mod, "shift"], "w", lazy.next_layout(), desc="Toggle between layouts"),
+      Key([mod, "shift"], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+      #Key([mod, "shift"], "d", lazy.spawncmd(), desc="Spawn a custom script which launches apps with a preset configuration"),
+      Key([mod, "shift"], "e", lazy.spawn("pcmanfm"), desc="Spawn the file manager"),
 
-    # Window Movement
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+      # Quick Launch Applications
+      KeyChord([mod], "a", [
+          Key([], "f", lazy.spawn("firefox")),
+          Key([], "r", lazy.spawn("st -z 18 -e ranger")),
+          Key([], "e", lazy.spawn("emacsclient -c"))
+      ]),
 
-    # Change window sizing
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod, "control"], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod], "o", lazy.layout.maximize(), desc="Maximize window"),
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
+      # Toggle Scratchpad visibility
+      Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad"),
 
-    # Multimedia Keybindings
-    Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
-    Key([], "XF86AudioLowerVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%-"))),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%+"))),
+      # Application / Utility / External Hot Keys
+      Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
+      Key([mod], "v", lazy.spawn("gscreenshot"), desc="Take a screenshot"),
 
-    # Application / Utility Keys
-    Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
-    Key([mod], "z", lazy.spawn("xscreensaver-command -lock"), desc="Lock Screen w/ Screensaver"),
-    Key([mod], "p", lazy.spawn("gscreenshot"), desc="Take a screenshot"),
-    Key([mod, "mod1"], "r", lazy.spawn("st -z 18 -e ranger"), desc="Launch Ranger"),
-    Key([mod, "mod1"], "f", lazy.spawn("firefox"), desc="Launch Firefox"),
+      # Focus Movement
+      Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+      Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+      Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+      Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+      Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
-    # Toggle Scratchpad visibility
-    Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad")
-]
+      # Window Movement
+      Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+      Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+      Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+      Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+
+      # Change Window Sizing and Layout Functions
+      Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+      Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+      Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+      Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+      Key([mod, "control"], "i", lazy.layout.shrink(), desc="Grow window up"),
+      Key([mod, "control"], "o", lazy.layout.grow(), desc="Grow window up"),
+      Key([mod, "control"], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+      Key([mod, "control"], "b", lazy.layout.minimize(), desc="Reset all window sizes"),
+      Key([mod, "control"], "m", lazy.layout.maximize(), desc="Maximize window"),
+      Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
+      Key([mod, "shift", "control"], "h", lazy.layout.swap_column_left()),
+      Key([mod, "shift", "control"], "l", lazy.layout.swap_column_right()),
+
+      # Multimedia Keybindings
+      Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
+      Key([], "XF86AudioLowerVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%-"))),
+      Key([], "XF86AudioRaiseVolume", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh 5%+")))
+  ]
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
@@ -79,17 +92,63 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-# Took this setup from DT/distrotube for group definition / hotkeys
-group_names = [("  ", {'layout': 'monadtall'}),
-               ("  ", {'layout': 'monadtall'}),
-               ("  ", {'layout': 'monadtall'}),
-               ("  ", {'layout': 'monadtall'}),
-               ("  ", {'layout': 'floating'})]
-groups = [Group(name, **kwargs) for name, kwargs in group_names] 
+group_labels = [
+    "  ",
+    "  ",
+    "  ",
+    "  ",
+    "  "
+]
+group_names = ["1", "2", "3", "4", "5"]
 
-for i, (name, kwargs) in enumerate(group_names, 1):     
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
+group_layouts = [
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "monadtall",
+    "floating"
+]
+
+group_matches = [
+    None,
+    [Match(wm_class=["st-256color"])],
+    [Match(wm_class=["firefox"])],
+    [Match(wm_class=["pcmanfm", "Pcmanfm"])],
+    None
+]
+
+group_exclusives = [
+    False, False, False,
+    False, False
+]
+
+group_persists = [
+    True, True, True,
+    True, True
+]
+
+group_inits = [
+    True, True, True,
+    True, True
+]
+
+groups = []
+
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            matches=group_matches[i],
+            layout=group_layouts[i].lower(),
+            label=group_labels[i],
+            exclusive=group_exclusives[i],
+            init=group_inits[i],
+            persist=group_persists[i]
+        ))
+
+for i in groups:     
+    keys.append(Key([mod], i.name, lazy.group[i.name].toscreen()))        # Switch to another group
+    keys.append(Key([mod, "shift"], i.name, lazy.window.togroup(i.name))) # Send window to another group
 
 groups.append( ScratchPad("scratchpad", [
     DropDown("term", "st", opacity=0.8)
@@ -113,16 +172,6 @@ layouts = [
     layout.Columns(**layout_theme,border_focus_stack='#d75f5f'),
     layout.Max(**layout_theme),
     layout.Floating(**floating_theme)
-    # Additional Layouts:
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 # colors for panel theming
@@ -147,17 +196,6 @@ extension_defaults = widget_defaults.copy()
 # Widget Definitions and Settings
 def init_widgets_list():
     widgets_list = [
-#        widget.Sep(
-#            linewidth = 0,
-#            padding = 6,
-#            foreground = colors[2],
-#            background = colors[0]
-#            ),
-#        widget.Image (
-#            filename = "~/.config/qtile/icons/python-white.png",
-#            scale = "False",
-#            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal)}
-#            ),
         widget.Sep(
             linewidth = 0,
             padding = 6,
@@ -198,14 +236,6 @@ def init_widgets_list():
             background = colors[0],
             padding = 0
             ),
-#        widget.WidgetBox (foreground=colors[6] ,widgets=[
-#            widget.Systray(
-#                background = colors[0],
-#                padding = 4
-#                )
-#            ],
-#            background=colors[0],
-#            ),
         widget.Sep (
             linewidth = 0,
             padding = 6,
