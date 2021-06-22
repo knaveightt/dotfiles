@@ -39,7 +39,7 @@ keys = [
 
       # Quick Launch Applications
       KeyChord([mod], "a", [
-          Key([], "f", lazy.spawn("firefox")),
+          Key([], "f", lazy.spawn("firefox"), desc="Web Browser"),
           Key([], "r", lazy.spawn("st -z 18 -e ranger")),
           Key([], "e", lazy.spawn("emacsclient -c"))
       ]),
@@ -395,7 +395,7 @@ floating_layout = layout.Floating(float_rules=[
 **floating_theme
 )
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+focus_on_window_activation = "focus"
 
 def echo_notify(qtile):
     try:
@@ -413,6 +413,10 @@ keys.append(Key([mod], "z", lazy.function(echo_notify)))
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
+
+@hook.subscribe.client_managed
+def focus_new(window, qtile):
+    qtile.current_screen.set_group(window.group)
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

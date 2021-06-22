@@ -74,7 +74,7 @@ keys = [
 
       # Quick Launch Applications
       KeyChord([mod], "a", [
-          Key([], "f", lazy.spawn("firefox")),
+          Key([], "f", lazy.spawn("firefox"), desc="Web Browser"),
           Key([], "r", lazy.spawn("st -z 18 -e ranger")),
           Key([], "e", lazy.spawn("emacsclient -c"))
       ]),
@@ -474,7 +474,7 @@ floating_layout = layout.Floating(float_rules=[
 ,**floating_theme
 )
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+focus_on_window_activation = "focus"
 #+END_SRC
 
 * Custom Commands
@@ -499,13 +499,17 @@ keys.append(Key([mod], "z", lazy.function(echo_notify)))
 #+END_SRC
 
 * Hooks and Wrap Ups
-I use a single hook to auto-execute commands upon the window manager starting.
+I use one hook to auto-execute commands upon the window manager starting. I am experimenting with another hook to force automatically switching the current group when a window is created and sent to a specified group due to a Match.
 
 #+BEGIN_SRC python
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
+
+@hook.subscribe.client_managed
+def focus_new(window, qtile):
+    qtile.current_screen.set_group(window.group)
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
