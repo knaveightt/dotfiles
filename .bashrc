@@ -10,3 +10,4 @@ PS1='[\u@\h \W]\$ '
 
 # on-launch commands
 neofetch
+. "$HOME/.cargo/env"
