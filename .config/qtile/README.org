@@ -12,6 +12,7 @@
 - [[#widget-configuration][Widget Configuration]]
 - [[#building-the-interface][Building the Interface]]
 - [[#application-and-layout-rules][Application and Layout Rules]]
+- [[#custom-commands][Custom Commands]]
 - [[#hooks-and-wrap-ups][Hooks and Wrap Ups]]
 
 * About this Config File
@@ -82,6 +83,7 @@ keys = [
       Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad"),
 
       # Application / Utility / External Hot Keys
+      Key([mod], "b", lazy.hide_show_bar()),
       Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
       Key([mod], "v", lazy.spawn("gscreenshot"), desc="Take a screenshot"),
 
@@ -111,6 +113,14 @@ keys = [
       Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
       Key([mod, "shift", "control"], "h", lazy.layout.swap_column_left()),
       Key([mod, "shift", "control"], "l", lazy.layout.swap_column_right()),
+
+      # Window Movement / Functions related to TreeTab layout
+      Key([mod, "mod1"], "j", lazy.layout.move_down()),
+      Key([mod, "mod1"], "k", lazy.layout.move_up()),
+      Key([mod, "mod1"], "h", lazy.layout.move_left()),
+      Key([mod, "mod1"], "l", lazy.layout.move_right()),
+      Key([mod, "mod1"], "o", lazy.layout.expand_branch()),
+      Key([mod, "mod1"], "i", lazy.layout.collapse_branch()),
 
       # Multimedia Keybindings
       Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
@@ -218,10 +228,23 @@ floating_theme = {
         "border_normal": "888888"
         }
 
+treetab_theme = {
+        "bg_color": "131313",
+        "inactive_bg": "212121",
+        "inactive_fg": "bdbdbd",
+        "active_bg": "333333",
+        "active_fg": "d06d32",
+        "font": "Inconsolata Nerd Font",
+        "fontsize": 12,
+        "sections": ['Workspace'],
+        "section_fontsize": 14,
+        "panel_width": 210
+}
+
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.Columns(**layout_theme,border_focus_stack='#d75f5f'),
-    layout.Max(**layout_theme),
+    layout.TreeTab(**treetab_theme),
     layout.Floating(**floating_theme)
 ]
 #+END_SRC
@@ -439,7 +462,7 @@ bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    *layout.Floating.default_float_rules,
+    ,*layout.Floating.default_float_rules,
     Match(wm_class='confirmreset'),  # gitk
     Match(wm_class='makebranch'),  # gitk
     Match(wm_class='maketag'),  # gitk
@@ -448,10 +471,31 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
 ],
-**floating_theme
+,**floating_theme
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+#+END_SRC
+
+* Custom Commands
+I use this section to define custom commands that I want available in my Qtile configuration.
+As a placeholder, I define a custom command using 'mod+z' that just presents me with a Prompt,
+and raises a dunst notification with whatever text I enter in the prompt.
+
+I will use this technique at some point to allow me to add / delete sections in the TreeTab layout.
+
+#+BEGIN_SRC python
+def echo_notify(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Echo:", notif, None)
+    except:
+        mb = None
+
+def notif(args):
+    qtile.cmd_spawn('dunstify "%s"' % args)
+
+keys.append(Key([mod], "z", lazy.function(echo_notify)))
 #+END_SRC
 
 * Hooks and Wrap Ups

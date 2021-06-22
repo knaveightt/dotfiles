@@ -48,6 +48,7 @@ keys = [
       Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle Terminal Scratchpad"),
 
       # Application / Utility / External Hot Keys
+      Key([mod], "b", lazy.hide_show_bar()),
       Key([mod], "c", lazy.spawn(os.path.expanduser("~/Prog/go-chromecast/dmenu/go-chromecast-rofi")), desc="Google Chromecast Control"),
       Key([mod], "v", lazy.spawn("gscreenshot"), desc="Take a screenshot"),
 
@@ -77,6 +78,14 @@ keys = [
       Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
       Key([mod, "shift", "control"], "h", lazy.layout.swap_column_left()),
       Key([mod, "shift", "control"], "l", lazy.layout.swap_column_right()),
+
+      # Window Movement / Functions related to TreeTab layout
+      Key([mod, "mod1"], "j", lazy.layout.move_down()),
+      Key([mod, "mod1"], "k", lazy.layout.move_up()),
+      Key([mod, "mod1"], "h", lazy.layout.move_left()),
+      Key([mod, "mod1"], "l", lazy.layout.move_right()),
+      Key([mod, "mod1"], "o", lazy.layout.expand_branch()),
+      Key([mod, "mod1"], "i", lazy.layout.collapse_branch()),
 
       # Multimedia Keybindings
       Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
@@ -167,10 +176,23 @@ floating_theme = {
         "border_normal": "888888"
         }
 
+treetab_theme = {
+        "bg_color": "131313",
+        "inactive_bg": "212121",
+        "inactive_fg": "bdbdbd",
+        "active_bg": "333333",
+        "active_fg": "d06d32",
+        "font": "Inconsolata Nerd Font",
+        "fontsize": 12,
+        "sections": ['Workspace'],
+        "section_fontsize": 14,
+        "panel_width": 210
+}
+
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.Columns(**layout_theme,border_focus_stack='#d75f5f'),
-    layout.Max(**layout_theme),
+    layout.TreeTab(**treetab_theme),
     layout.Floating(**floating_theme)
 ]
 
@@ -374,6 +396,18 @@ floating_layout = layout.Floating(float_rules=[
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+def echo_notify(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Echo:", notif, None)
+    except:
+        mb = None
+
+def notif(args):
+    qtile.cmd_spawn('dunstify "%s"' % args)
+
+keys.append(Key([mod], "z", lazy.function(echo_notify)))
 
 @hook.subscribe.startup_once
 def autostart():
