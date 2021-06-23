@@ -86,6 +86,8 @@ keys = [
       Key([mod, "mod1"], "l", lazy.layout.move_right()),
       Key([mod, "mod1"], "o", lazy.layout.expand_branch()),
       Key([mod, "mod1"], "i", lazy.layout.collapse_branch()),
+      Key([mod, "mod1", "shift"], "j", lazy.layout.section_down()),
+      Key([mod, "mod1", "shift"], "k", lazy.layout.section_up()),
 
       # Multimedia Keybindings
       Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
@@ -251,7 +253,7 @@ def init_widgets_list():
         widget.Prompt(
             foreground = colors[6],
             background = colors[0],
-            prompt = "Run Command: "
+            # prompt = "Run Command: "
             ),
         widget.WindowName(
             foreground = colors[6],
@@ -400,7 +402,7 @@ focus_on_window_activation = "focus"
 def echo_notify(qtile):
     try:
         mb = qtile.widgets_map["prompt"]
-        mb.start_input("Echo:", notif, None)
+        mb.start_input("Echo", notif, None)
     except:
         mb = None
 
@@ -409,14 +411,34 @@ def notif(args):
 
 keys.append(Key([mod], "z", lazy.function(echo_notify)))
 
+def new_section(args):
+    qtile.current_layout.cmd_add_section(args)
+
+def get_new_section(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Section", new_section, None)
+    except:
+        mb = None
+
+keys.append(Key([mod, "mod1"], "t", lazy.function(get_new_section)))
+
+def del_section(args):
+    qtile.current_layout.cmd_del_section(args)
+
+def get_remove_section(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Section", del_section, None)
+    except:
+        mb = None
+
+keys.append(Key([mod, "mod1"], "r", lazy.function(get_remove_section)))
+
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
-
-@hook.subscribe.client_managed
-def focus_new(window, qtile):
-    qtile.current_screen.set_group(window.group)
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

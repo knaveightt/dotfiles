@@ -121,6 +121,8 @@ keys = [
       Key([mod, "mod1"], "l", lazy.layout.move_right()),
       Key([mod, "mod1"], "o", lazy.layout.expand_branch()),
       Key([mod, "mod1"], "i", lazy.layout.collapse_branch()),
+      Key([mod, "mod1", "shift"], "j", lazy.layout.section_down()),
+      Key([mod, "mod1", "shift"], "k", lazy.layout.section_up()),
 
       # Multimedia Keybindings
       Key([], "XF86AudioMute", lazy.spawn(os.path.expanduser("~/.config/dunst/changeVolume.sh mute"))),
@@ -320,7 +322,7 @@ def init_widgets_list():
         widget.Prompt(
             foreground = colors[6],
             background = colors[0],
-            prompt = "Run Command: "
+            # prompt = "Run Command: "
             ),
         widget.WindowName(
             foreground = colors[6],
@@ -482,13 +484,13 @@ I use this section to define custom commands that I want available in my Qtile c
 As a placeholder, I define a custom command using 'mod+z' that just presents me with a Prompt,
 and raises a dunst notification with whatever text I enter in the prompt.
 
-I will use this technique at some point to allow me to add / delete sections in the TreeTab layout.
+I use this technique to allow me to add / delete sections in the TreeTab layout.
 
 #+BEGIN_SRC python
 def echo_notify(qtile):
     try:
         mb = qtile.widgets_map["prompt"]
-        mb.start_input("Echo:", notif, None)
+        mb.start_input("Echo", notif, None)
     except:
         mb = None
 
@@ -496,20 +498,40 @@ def notif(args):
     qtile.cmd_spawn('dunstify "%s"' % args)
 
 keys.append(Key([mod], "z", lazy.function(echo_notify)))
+
+def new_section(args):
+    qtile.current_layout.cmd_add_section(args)
+
+def get_new_section(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Section", new_section, None)
+    except:
+        mb = None
+
+keys.append(Key([mod, "mod1"], "t", lazy.function(get_new_section)))
+
+def del_section(args):
+    qtile.current_layout.cmd_del_section(args)
+
+def get_remove_section(qtile):
+    try:
+        mb = qtile.widgets_map["prompt"]
+        mb.start_input("Section", del_section, None)
+    except:
+        mb = None
+
+keys.append(Key([mod, "mod1"], "r", lazy.function(get_remove_section)))
 #+END_SRC
 
 * Hooks and Wrap Ups
-I use one hook to auto-execute commands upon the window manager starting. I am experimenting with another hook to force automatically switching the current group when a window is created and sent to a specified group due to a Match.
+I use one hook to auto-execute commands upon the window manager starting.
 
 #+BEGIN_SRC python
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
     subprocess.call([home])
-
-@hook.subscribe.client_managed
-def focus_new(window, qtile):
-    qtile.current_screen.set_group(window.group)
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
