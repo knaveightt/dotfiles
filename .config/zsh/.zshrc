@@ -1,6 +1,9 @@
 # Zshrc Config File
 # Taken pretty much from Luke Smith's config for zsh, credit goes to him
 
+# PATH Updates
+export PATH=~/.local/bin:$PATH
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}<%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}>%{$reset_color%}$%b "

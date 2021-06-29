@@ -1,9 +1,5 @@
 # Profile file for setting environmental variables for a login session
 
-# path edits
-path+=('$HOME/.local/bin')
-export PATH
-
 # default programs
 export EDITOR="vim"
 export TERMINAL="st"
