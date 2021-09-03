@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,run,drun,file-browser,keys";
+	modi: "window,run,drun,filebrowser,keys";
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/

@@ -4,7 +4,7 @@
  * Copyright: Dave Davenport
  */
 * {
-    background-color:      #131313;
+    background-color:      transparent;
     border-color:          White;
     text-color:           White;
     font:            "Inconsolata Nerd Font 12";
@@ -36,6 +36,7 @@
 }
 
 #entry {
+    background-color: #1a1a1a;
     padding: 2px 4px;
     expand:     false;
     width:      10em;
@@ -44,7 +45,8 @@
 #element {
     background-color: #2a2a2a;
     padding: 2px 8px;
-    text-color: #aaa;
+    text-color: inherit;
+    text-font: inherit;
 }
 #element selected {
     background-color: #555555;

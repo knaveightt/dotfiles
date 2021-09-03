@@ -4,7 +4,7 @@
  * Copyright: Dave Davenport
  */
 * {
-    background-color:      #131313;
+    background-color:      transparent;
     border-color:          White;
     text-color:           White;
     font:            "Inconsolata Nerd Font 12";
@@ -14,7 +14,7 @@
     anchor:     north;
     location:   north;
     width:      100%;
-    padding:    4px;
+    padding:    0px;
     children:   [ inputbar, listview ];
 }
 
@@ -36,6 +36,7 @@
 }
 
 #entry {
+    background-color: #1a1a1a;
     padding: 2px 4px;
     expand:     false;
     width:      10em;
