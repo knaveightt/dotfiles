@@ -8,15 +8,14 @@ alias ls="ls --color=auto"
 alias f="ranger"
 
 # vim alisa and shortcuts
-alias v="vim"
-alias vv="vim ~/Projects/knaVIMRC/.vim/vimrc"
-alias va="vim ~/.config/aliasrc"
-alias vq="vim ~/.config/qtile/config.py"
-alias vz="vim ~/.config/zsh/.zshrc"
-alias vm="vim ~/.config/mpd/mpd.conf"
-alias vf="vim ~/.config/vifm/vifmrc"
-alias vd="vim ~/.config/dunst/dunstrc"
-alias vc="vim ~/.config/picom/picom.conf"
+alias v="nvim"
+alias va="nvim ~/.config/aliasrc"
+alias vq="nvim ~/.config/qtile/config.py"
+alias vz="nvim ~/.config/zsh/.zshrc"
+alias vm="nvim ~/.config/mpd/mpd.conf"
+alias vf="nvim ~/.config/vifm/vifmrc"
+alias vd="nvim ~/.config/dunst/dunstrc"
+alias vc="nvim ~/.config/picom/picom.conf"
 
 # dotfile tracking alias
 alias dfiles='/usr/bin/git --git-dir=$HOME/Projects/dotfiles --work-tree=$HOME'

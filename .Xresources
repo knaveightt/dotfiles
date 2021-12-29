@@ -1,40 +1,37 @@
-! Do not show New Login option when using xscreensaver
-xscreensaver.newLoginCommand:
-
+! Colorscheme: Japanesque from https://mayccoll.github.io/Gogh/
 ! special
-*.foreground:   #bdbdbd
-*.background:   #0d0d0d
-*.cursorColor:  #bdbdbd
+*.foreground:   #fafaf6
+*.background:   #1e1e1e
+*.cursorColor:  #b2b5ae
 
 ! black
-*.color0:       #555555
-*.color8:       #888888
+*.color0:       #343935
+*.color8:       #595b59
 
 ! red
-*.color1:       #c44332
-*.color9:       #ee6352
+*.color1:       #cf3f61
+*.color9:       #d18fa6
 
 ! green
-*.color2:       #c68641
-*.color10:      #dd3838
+*.color2:       #7bb75b
+*.color10:      #767f2c
 
 ! yellow
-*.color3:       #d06d32
-*.color11:      #fd8f5a
+*.color3:       #e9b32a
+*.color11:      #78592f
 
 ! blue
-*.color4:       #690da8
-*.color12:      #b20fbd
+*.color4:       #4c9ad4
+*.color12:      #135979
 
 ! magenta
-*.color5:       #744560
-*.color13:      #9e5e83
+*.color5:       #a57fc4
+*.color13:      #604291
 
 ! cyan
-*.color6:       #288e9c
-*.color14:      #36bed1
+*.color6:       #389aad
+*.color14:      #76bbca
 
 ! white
-*.color7:       #8b7d70
-*.color15:      #9f9f9f
-
+*.color7:       #fafaf6
+*.color15:      #b2b5ae

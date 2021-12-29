@@ -14,6 +14,14 @@
 - [[#application-and-layout-rules][Application and Layout Rules]]
 - [[#custom-commands][Custom Commands]]
 - [[#hooks-and-wrap-ups][Hooks and Wrap Ups]]
+- [[#ricing-instructions][Ricing Instructions]]
+  - [[#terminal-color-scheme][Terminal Color Scheme]]
+  - [[#wallpapers][Wallpapers]]
+  - [[#gtk3-themes][GTK3 Themes]]
+  - [[#icon-themes][Icon Themes]]
+  - [[#qtile-pointers][Qtile Pointers]]
+  - [[#rofi][Rofi]]
+  - [[#dunst][Dunst]]
 
 * About this Config File
 This is my configuration for the Qtile window manager. I like this wm mainly because I am comfortable with python, but I also find this window manager to be flexible for my tastes. While this is technically a README, I take advantage of Emacs Org-mode and the "tangle" feature, which allows me to specify the code blocks of python below, and write them to a separate config.py file on command. I find this a great way to both document, and apply, my Qtile configuration.   
@@ -544,3 +552,99 @@ def autostart():
 wmname = "qtile"
 #+END_SRC
 
+* Ricing Instructions
+Here is a quick run down of the main things (with options!) I focus on when ricing my system with Qtile
+** Terminal Color Scheme
+*** Terminal.sexy Hybrid by w0ng (Modified)
+! special
+*.foreground:   #c5c8c6
+*.background:   #121415
+*.cursorColor:  #c5c8c6
+
+! black
+*.color0:       #282a2e
+*.color8:       #373b41
+
+! red
+*.color1:       #a54242
+*.color9:       #cc6666
+
+! green
+*.color2:       #8c9440
+*.color10:      #b5bd68
+
+! yellow
+*.color3:       #de935f
+*.color11:      #f0c674
+
+! blue
+*.color4:       #5f819d
+*.color12:      #81a2be
+
+! magenta
+*.color5:       #85678f
+*.color13:      #b294bb
+
+! cyan
+*.color6:       #5e8d87
+*.color14:      #8abeb7
+
+! white
+*.color7:       #707880
+*.color15:      #c5c8c6
+
+*** Japanesque
+! Colorscheme: Japanesque from https://mayccoll.github.io/Gogh/
+! special
+*.foreground:   #fafaf6
+*.background:   #1e1e1e
+*.cursorColor:  #b2b5ae
+
+! black
+*.color0:       #343935
+*.color8:       #595b59
+
+! red
+*.color1:       #cf3f61
+*.color9:       #d18fa6
+
+! green
+*.color2:       #7bb75b
+*.color10:      #767f2c
+
+! yellow
+*.color3:       #e9b32a
+*.color11:      #78592f
+
+! blue
+*.color4:       #4c9ad4
+*.color12:      #135979
+
+! magenta
+*.color5:       #a57fc4
+*.color13:      #604291
+
+! cyan
+*.color6:       #389aad
+*.color14:      #76bbca
+
+! white
+*.color7:       #fafaf6
+*.color15:      #b2b5ae
+
+** Wallpapers
+*** Nature Vectors by Vecteezy
+    <a href="https://www.vecteezy.com/free-vector/nature">Nature Vectors by Vecteezy</a>
+** GTK3 Themes
+*** Ultimate Dark Orange
+*** Kripton
+https://github.com/EliverLara/Kripton
+
+** Icon Themes
+*** Vimix Black
+*** Delft
+https://github.com/madmaxms/iconpack-delft
+
+** Qtile Pointers
+** Rofi
+** Dunst
