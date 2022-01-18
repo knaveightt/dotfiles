@@ -29,7 +29,7 @@ keys = [
       Key([mod], "w", lazy.spawn("rofi -show window -theme dmenu-list"), desc="Launch Rofi in Window mode"),
       Key([mod], "r", lazy.spawn("rofi -show run -theme dmenu"), desc="Launch Rofi in Run mode"),
       Key([mod], "d", lazy.spawn("rofi -show drun -theme dmenu-list-ex -show-icons"), desc="Launch Rofi in Drun mode"),
-      Key([mod], "e", lazy.spawn("rofi -show file-browser -theme dmenu-list -show-icons"), desc="Launch Rofi in File-Browswer mode"),
+      Key([mod], "e", lazy.spawn("st -z 18 -e ranger"), desc="Launch Ranger"),
 
       # "Extended" Command Shortcuts
       Key([mod, "shift"], "w", lazy.next_layout(), desc="Toggle between layouts"),

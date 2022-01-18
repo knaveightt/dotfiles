@@ -9,6 +9,7 @@ alias f="ranger"
 
 # vim alisa and shortcuts
 alias v="nvim"
+alias vv="nvim ~/.config/nvim/init.vim"
 alias va="nvim ~/.config/aliasrc"
 alias vq="nvim ~/.config/qtile/config.py"
 alias vz="nvim ~/.config/zsh/.zshrc"

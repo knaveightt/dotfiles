@@ -1,7 +1,7 @@
 # Profile file for setting environmental variables for a login session
 
 # default programs
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="st"
 
 # default encoding
